@@ -31,6 +31,7 @@ def call_engine(options):
 
     engine.play(player1, player2, state=state, max_time=options.max_time*1000, verbose=(not options.quiet))
 
+
 if __name__ == "__main__":
 
     ## Parse the command line options

@@ -1,6 +1,5 @@
 """
-RandomBot -- A simple strategy: enumerates all legal moves, and picks one
-uniformly at random.
+DaveBot - A little stupid, but he tries his best :(
 """
 
 # Import the API objects
