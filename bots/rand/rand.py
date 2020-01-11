@@ -30,5 +30,9 @@ class Bot:
         # All legal moves
         moves = state.moves()
 
+        print("Rand's available moves: \n")
+        print(moves)
+        print("\n")
+
         # Return a random choice
         return random.choice(moves)

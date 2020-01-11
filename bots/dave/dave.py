@@ -1,9 +1,14 @@
 """
-DaveBot - A little stupid, but he tries his best :(
+DaveBot - A deterministic bot who likes marriages
 """
 
+# Will check for royal marriages first thing
+# Will try to play lowest trump suit if opponents card isn't of trump suit and is a 10 or Ace
+# Will attempt to play higher versions of same suit if lost previous trick
+# Will attempt to play highest cards be default, but will avoid playing king or queen if possible
+
 # Import the API objects
-from api import State
+from api import State, Deck
 import random
 
 
@@ -12,22 +17,24 @@ class Bot:
     def __init__(self):
         pass
 
+    def check_royal_marriage(self, state, moves):
+        possible_marriages = Deck.get_possible_mariages(state._deck, self)
+        print("Dave's possible marriages: ")
+        print(possible_marriages)
+        print("\n")
+
+
     def get_move(self, state):
         # type: (State) -> tuple[int, int]
-        """
-        Function that gets called every turn. This is where to implement the strategies.
-        Be sure to make a legal move. Illegal moves, like giving an index of a card you
-        don't own or proposing an illegal mariage, will lose you the game.
-       	TODO: add some more explanation
-        :param State state: An object representing the gamestate. This includes a link to
-            the states of all the cards, the trick and the points.
-        :return: A tuple of integers or a tuple of an integer and None,
-            indicating a move; the first indicates the card played in the trick, the second a
-            potential spouse.
-        """
 
         # All legal moves
         moves = state.moves()
+
+        self.check_royal_marriage(state, moves)
+
+        print("Dave's available moves: \n")
+        print(moves)
+        print("\n")
 
         # Return a random choice
         return random.choice(moves)
