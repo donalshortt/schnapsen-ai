@@ -27,8 +27,7 @@ class Bot:
 
         return move
 
-    def value(self, state, depth = 0):
-        # type: (State, int) -> tuple[float, tuple[int, int]]
+    def value(self, state, depth = 0, leadcount = -3):
         """
         Return the value of this state and the associated move
         :param state:
@@ -41,7 +40,7 @@ class Bot:
             return (points, None) if winner == 1 else (-points, None)
 
         if depth == self.__max_depth:
-            return heuristic(state)
+            return heuristic(state, leadcount)
 
         moves = state.moves()
 
@@ -55,10 +54,10 @@ class Bot:
 
             next_state = state.next(move)
 
-            value, m = self.value(next_state, depth + 1)
-            # IMPLEMENT: Add a recursive function call so that 'value' will contain the
-            # minimax value of 'next_state'
-            # value ???
+            if is_player_leading_trick(next_state):
+                leadcount = leadcount + 1
+
+            value, m = self.value(next_state, depth + 1, leadcount)
 
             if maximizing(state):
                 if value > best_value:
@@ -81,12 +80,26 @@ def maximizing(state):
     """
     return state.whose_turn() == 1
 
-def heuristic(state):
-    # type: (State) -> float
+def is_player_leading_trick(state):
+    # determines whether or not the player is leading the trick for the given state
+    if state.leader() == state.whose_turn():
+        return True
+    else:
+        return False
+
+def heuristic(state, leadcount):
+    # type: (State, int) -> float
     """
     Estimate the value of this state: -1.0 is a certain win for player 2, 1.0 is a certain win for player 1
-
     :param state:
     :return: A heuristic evaluation for the given state (between -1.0 and 1.0)
     """
-    return util.ratio_points(state, 1) * 2.0 - 1.0, None
+
+    leadcount_heuristic = leadcount / 10
+    ratio_heuristic = util.ratio_points(state, 1) * 2.0 - 1.0
+
+    if
+
+    evaluation = leadcount_heuristic + ratio_heuristic
+
+    return evaluation, None
