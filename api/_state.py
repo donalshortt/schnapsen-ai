@@ -200,7 +200,7 @@ class State:
 		:return: A list of all the legal moves that can be made by the player whose turn it is.
 			A move is a tuple of length 2. There are 3 distinct cases:
 				- (int, None): first element indicates the index of the card that is placed down.
-				- (int, int) : first element as above, second element completes a marriage
+				- (int, int) : first element as above, second element completes a
 				- (None, int): First element being None indicates a trump jack exchange,
 					second element is the index of that trump jack
 		"""
